@@ -33,6 +33,8 @@ date;
 "
 
 while true; do
+  # This check is done here so user doesn't need to restart script
+  #   after creating the file.
   if [ ! -f "$EXPECTED_OUTPUT_FILE" ]; then
     tput reset
     echo -e "Expected output file wasn't found!\\n"
@@ -44,6 +46,13 @@ while true; do
     continue
   fi
 
+  # This check is done here so user doesn't need to restart script
+  #   after creating the file.
+  # Also, for the executable, the user probably won't be able to compile
+  #   the program at first, so this is needed to prevent entr from clogging
+  #   screen with:
+  #     entr: unable to stat '/path/to/file.cpp'
+  #     entr: No regular files to watch
   if [ ! -f "$EXECUTABLE_PATH" ]; then
     tput reset
     echo "Waiting for executable..."
