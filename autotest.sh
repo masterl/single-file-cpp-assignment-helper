@@ -33,6 +33,17 @@ date;
 "
 
 while true; do
+  if [ ! -f "$EXPECTED_OUTPUT_FILE" ]; then
+    tput reset
+    echo -e "Expected output file wasn't found!\\n"
+    echo "Missing file:"
+    echo "    $EXPECTED_OUTPUT_FILE"
+    echo "$DIV_LINE"
+    date
+    sleep 2
+    continue
+  fi
+
   if [ ! -f "$EXECUTABLE_PATH" ]; then
     tput reset
     echo "Waiting for executable..."
